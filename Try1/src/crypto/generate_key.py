@@ -9,7 +9,7 @@ import time
 
 start = time.time()
 #Generate a public/ private key pair using 4096 bits key length (512 bytes)
-new_key = RSA.generate(4096, e=65537)
+new_key = RSA.generate(1024, e=65537)
 
 #The private key in PEM format
 private_key = new_key.exportKey("PEM")

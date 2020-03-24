@@ -20,7 +20,7 @@ def encrypt_blob(blob, public_key):
     #In determining the chunk size, determine the private key length used in bytes
     #and subtract 42 bytes (when using PKCS1_OAEP). The data will be in encrypted
     #in chunks
-    chunk_size = 470
+    chunk_size = 86
     offset = 0
     end_loop = False
     encrypted = bytearray()
@@ -64,21 +64,30 @@ fd.close()
 
 
 
-#im_unen = [cv2.imread(file) for file in glob.glob(r"C:\Users\c00221719\Documents\GitHub\Flask-File-Transfer\Try1\src\crypto\*.png")]
-im_unen = (r"C:\Users\c00221719\Documents\GitHub\Flask-File-Transfer\Try1\src\crypto\images_unencrypted\*.png")
-with open(im_unen,"rb") as file:
-    unencrypted_blob_whole = file.read()
-    encrypted_blob_whole = encrypt_blob(unencrypted_blob_whole, public_key)
-    
-    
-    
-im_en = cv2.imread(r'\crypto\images_encrypted')
-with open(im_en, "wb") as file:
-    cv2.imwrite(encrypted_blob_whole)
-    
+
+path = "./images_unencrypted/"
+path_2 = "./images_encrypted/"
+
+import os
+
+dirs = os.listdir(path)
+for item in dirs:
+    if os.path.isfile(path+item):
+        fd = open(path+item, 'rb')
+        unencrypted_blob = fd.read()
+        fd.close
+        encrypted_blob = encrypt_blob(unencrypted_blob, public_key)
+        f, e = os.path.splitext(path_2+item)
+        print(f)
+        fd_2 = open(f+'.jpg' ,"wb")
+        fd_2.write(encrypted_blob)
+        fd_2.close
+        
 
 
-
+    
+    
+    
 end = time.time()
 eTime = end - start
 

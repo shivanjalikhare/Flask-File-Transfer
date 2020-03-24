@@ -21,7 +21,7 @@ def decrypt_blob(encrypted_blob, private_key):
 
     #In determining the chunk size, determine the private key length used in bytes.
     #The data will be in decrypted in chunks
-    chunk_size = 512
+    chunk_size = 128
     offset = 0
     decrypted = bytearray()
 
@@ -55,6 +55,24 @@ fd = open("decrypted_img.jpg", "wb")
 fd.write(decrypt_blob(encrypted_blob, private_key))
 fd.close()
 
+import os
+path = "./images_encrypted/"
+path_2 = "./images_decrypted/"
+
+dirs = os.listdir(path)
+for item in dirs:
+    if os.path.isfile(path+item):
+        fd = open(path+item, 'rb')
+        encrypted_blob = fd.read()
+        fd.close
+        
+        #encrypted_blob = encrypt_blob(unencrypted_blob, public_key)
+        f, e = os.path.splitext(path_2+item)
+        print(f)
+        fd_2 = open(f+'.jpg' ,"wb")
+        fd_2.write(decrypt_blob(encrypted_blob, private_key))
+        fd_2.close
+        
 end = time.time()
 eTime = end - start
 
